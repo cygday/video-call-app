@@ -35,11 +35,12 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                // This requires the 'Kubernetes CLI' plugin to be installed
                 withKubeConfig([credentialsId: 'k8s-config']) {
+            // Check if it's pointing to the correct cluster URL
+                    sh 'kubectl cluster-info' 
                     sh 'kubectl apply -f k8s/'
-                }
-            } // Close steps
-        } // Close stage
-    } // Close stages
+         }
+     }
+ }
+
 }
