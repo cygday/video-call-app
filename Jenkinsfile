@@ -8,11 +8,6 @@ pipeline {
 
     stages {
 
-        stage('Clone') {
-            steps {
-                git 'https://github.com/your-repo/video-call-app.git'
-            }
-        }
 
         stage('Build Docker Image') {
             steps {
