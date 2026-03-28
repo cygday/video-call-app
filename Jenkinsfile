@@ -30,14 +30,16 @@ pipeline {
 
         stage('Push Image') {
             steps {
-                withCredentials([usernamePassword(credentialsId: DOCKERHUB_CREDENTIALS,
-                usernameVariable: 'cygday', passwordVariable: 'dockerhub123')]) {
-                    sh 'echo $PASS | docker login -u $USER --password-stdin'
-                    sh 'docker push cygday/$IMAGE_NAME:latest'
-                }
-            }
+        // Ensure 'dockerhub-creds' matches exactly what you created in Jenkins Credentials
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', 
+                         usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+            
+            // Use double quotes (") to allow variable injection
+            sh "echo ${PASS} | docker login -u ${USER} --password-stdin"
+            sh "docker push cygday/video-call-app:latest"
         }
-
+    }
+}
         stage('Deploy to Kubernetes') {
             steps {
                 sh 'kubectl apply -f k8s/'
