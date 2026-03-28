@@ -5,12 +5,15 @@ pipeline {
         IMAGE_NAME = "video-call-app"
         DOCKERHUB_CREDENTIALS = "dockerhub-creds"
     }
+    
+    tools {
+       // This 'docker' matches the Name you gave in step 2.4
+            dockerTool 'docker'
+        }
+
 
     stages {
-        tools {
-        // This 'docker' matches the Name you gave in step 2.4
-            dockerTool 'docker' 
-        }
+       
 
 
         stage('Build Docker Image') {
