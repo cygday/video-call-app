@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: video-call
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: video-call
+  template:
+    metadata:
+      labels:
+        app: video-call
+    spec:
+      containers:
+      - name: video-call
+        image: your-dockerhub/video-call-app:latest
+        ports:
+        - containerPort: 5000
