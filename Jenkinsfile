@@ -38,7 +38,7 @@ pipeline {
                 script {
                     // This handles authentication using the Secret File 'k8s-config'
                     withKubeConfig([credentialsId: 'k8s-config']) {
-                        sh 'kubectl cluster-info' 
+                        sh 'export KUBECONFIG=$KUBECONFIG; kubectl cluster-info' 
                         sh 'kubectl apply -f k8s/'
                     }
                 }
