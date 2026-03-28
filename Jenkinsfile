@@ -42,11 +42,11 @@ pipeline {
 }
 
 
-
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'kubectl apply -f k8s/deployment.yaml'
-            }
+        // withKubeConfig handles the setup and cleanup of the config file
+                withKubeConfig([credentialsId: 'k8s-config']) {
+            sh 'kubectl apply -f k8s/'
         }
     }
 }
