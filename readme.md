@@ -8,3 +8,8 @@ docker cp container_name:/var/jenkins_home/config.xml ./config.xml
 
 
 jenkins username - arzun password -admin
+
+
+renameing docker container
+
+docker rename new old_container
