@@ -7,15 +7,10 @@ pipeline {
     }
     
     tools {
-       // This 'docker' matches the Name you gave in step 2.4
-            dockerTool 'docker'
-        }
-
+        dockerTool 'docker'
+    }
 
     stages {
-       
-
-
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t $IMAGE_NAME .'
@@ -28,27 +23,23 @@ pipeline {
             }
         }
 
-
         stage('Push Image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', 
                          usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-            
-            // Using the older -p flag because your Docker version is outdated
-            sh "docker login -u ${USER} -p ${PASS}"
-            sh "docker push cygday/video-call-app:latest"
-        }
-    }
-}
-
+                    sh "docker login -u ${USER} -p ${PASS}"
+                    sh "docker push cygday/video-call-app:latest"
+                }
+            } // Close steps
+        } // Close stage
 
         stage('Deploy to Kubernetes') {
             steps {
-        // withKubeConfig handles the setup and cleanup of the config file
+                // This requires the 'Kubernetes CLI' plugin to be installed
                 withKubeConfig([credentialsId: 'k8s-config']) {
-            sh 'kubectl apply -f k8s/'
-        }
-    }
- 
- }
+                    sh 'kubectl apply -f k8s/'
+                }
+            } // Close steps
+        } // Close stage
+    } // Close stages
 }
