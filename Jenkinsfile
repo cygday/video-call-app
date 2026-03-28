@@ -24,16 +24,16 @@ pipeline {
 
         stage('Tag Image') {
             steps {
-                sh 'docker tag $IMAGE_NAME your-dockerhub/$IMAGE_NAME:latest'
+                sh 'docker tag $IMAGE_NAME cygday/$IMAGE_NAME:latest'
             }
         }
 
         stage('Push Image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: DOCKERHUB_CREDENTIALS,
-                usernameVariable: 'USER', passwordVariable: 'PASS')]) {
+                usernameVariable: 'cygday', passwordVariable: 'dockerhub123')]) {
                     sh 'echo $PASS | docker login -u $USER --password-stdin'
-                    sh 'docker push your-dockerhub/$IMAGE_NAME:latest'
+                    sh 'docker push cygday/$IMAGE_NAME:latest'
                 }
             }
         }

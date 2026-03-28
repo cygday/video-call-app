@@ -13,3 +13,6 @@ jenkins username - arzun password -admin
 renameing docker container
 
 docker rename new old_container
+
+
+dockerhub username -> cygday password -> dockerhub123
