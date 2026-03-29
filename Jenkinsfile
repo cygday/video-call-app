@@ -36,6 +36,8 @@ pipeline {
         stage('Deploy to Kubernetes') {
             steps {
                 script {
+                    sh 'curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)
+                    sh 'chmod +x ./kubectl'
                     // This handles authentication using the Secret File 'k8s-config'
                     withKubeConfig([credentialsId: 'k8s-config']) {
                         sh 'export KUBECONFIG=$KUBECONFIG; kubectl cluster-info' 
