@@ -40,8 +40,8 @@ pipeline {
                     sh 'chmod +x ./kubectl'
                     // This handles authentication using the Secret File 'k8s-config'
                     withKubeConfig([credentialsId: 'k8s-config']) {
-                        sh 'export KUBECONFIG=$KUBECONFIG; kubectl cluster-info' 
-                        sh 'kubectl apply -f k8s/'
+                        sh 'export KUBECONFIG=$KUBECONFIG; ./kubectl cluster-info' 
+                        sh './kubectl apply -f k8s/deployment.yaml'
                     }
                 }
             }
