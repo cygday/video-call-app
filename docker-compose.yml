@@ -17,6 +17,10 @@ services:
       # Optional: Mounts the host docker binary if it's not in the image
       - /usr/bin/docker:/usr/bin/docker
     restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
 volumes:
   jenkins_home:
+
+
