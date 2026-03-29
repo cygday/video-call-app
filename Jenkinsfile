@@ -27,7 +27,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', 
                                  usernameVariable: 'USER', passwordVariable: 'PASS')]) {
-                    sh "docker login -u ${USER} -p ${PASS}"
+                    sh 'echo "${PASS}" | docker login -u ${USER} --password-stdin'
                     sh "docker push cygday/video-call-app:latest"
                 }
             }
