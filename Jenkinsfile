@@ -41,7 +41,7 @@ pipeline {
                     // This handles authentication using the Secret File 'k8s-config'
                     withKubeConfig([credentialsId: 'k8s-config']) {
                         sh 'export KUBECONFIG=$KUBECONFIG; ./kubectl cluster-info --insecure-skip-tls-verify' 
-                        sh './kubectl apply -f k8s/deployment.yaml --insecure-skip-tls-verify'
+                        sh './kubectl apply -f k8s/ --insecure-skip-tls-verify'
                     }
                 }
             }

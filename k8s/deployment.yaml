@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: video-call
-        image: your-dockerhub/video-call-app:latest
+        image: cygday/video-call-app:latest
         ports:
         - containerPort: 5000
